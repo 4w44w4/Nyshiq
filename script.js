@@ -21,11 +21,9 @@
 
   /* ---------- Scroll reveal ---------- */
   var revealTargets = document.querySelectorAll(
-    '.quote-text, .quote-divider, .quote-attr, ' +
-    '.featured .section-eyebrow, .featured .section-title, .featured .section-lede, .featured .video-frame, ' +
-    '.stat-card, ' +
-    '.hub .section-eyebrow, .hub .section-title, .hub-card, ' +
-    '.about .section-eyebrow, .about .section-title, .about-body, ' +
+    '.video-frame, ' +
+    '.hub-card, ' +
+    '.about-list li, ' +
     '.upcoming-card'
   );
 
@@ -58,7 +56,7 @@
   var ctx = canvas.getContext('2d');
   var flakes = [];
   var W, H, DPR;
-  var FLAKE_COUNT = window.innerWidth < 640 ? 50 : 90;
+  var FLAKE_COUNT = window.innerWidth < 640 ? 22 : 40;
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -120,7 +118,7 @@
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-      FLAKE_COUNT = window.innerWidth < 640 ? 50 : 90;
+      FLAKE_COUNT = window.innerWidth < 640 ? 22 : 40;
       init();
     }, 200);
   });

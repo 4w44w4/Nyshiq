@@ -17,29 +17,19 @@
 <!-- Snowfall canvas -->
 <canvas id="snow-canvas" aria-hidden="true"></canvas>
 
-<!-- Fixed nav dot -->
+<!-- Scroll progress -->
 <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill" id="scrollFill"></div></div>
 
-<!-- ============ SECTION 1: HERO ============ -->
+<!-- ============ HERO ============ -->
 <header class="hero" id="hero">
   <div class="hero-bg">
     <img src="https://res.cloudinary.com/dsetw6lec/image/upload/v1782034549/SaveClip.App_670363079_17901523224409917_2247996458396713785_n_ec1xkm.jpg" alt="NyshiQ portrait" class="hero-img">
     <div class="hero-overlay"></div>
-    <div class="hero-vignette"></div>
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">LAS VEGAS</p>
     <h1 class="hero-title">NYSHIQ</h1>
     <p class="hero-tagline">Real pain in every bar.</p>
-    <p class="hero-sub">Las Vegas-based artist.</p>
-    <p class="hero-pillars">
-      <span>Dark storytelling</span>
-      <span class="pillar-dot">•</span>
-      <span>Emotional lyricism</span>
-      <span class="pillar-dot">•</span>
-      <span>Cinematic visuals</span>
-    </p>
 
     <div class="hero-actions">
       <a href="#featured" class="btn btn-primary">
@@ -49,40 +39,24 @@
         <span class="btn-icon">◎</span> Connect
       </a>
     </div>
-
-    <div class="hero-release-strip">
-      <span>New EP</span>
-      <span class="dot">•</span>
-      <span class="release-title">Letter To My Dead</span>
-      <span class="dot">•</span>
-      <span class="coming-soon">Coming Soon</span>
-    </div>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
+  <div class="scroll-cue" aria-hidden="true"></div>
 </header>
 
 <main>
 
-  <!-- ============ SECTION 2: CINEMATIC QUOTE ============ -->
-  <section class="quote-section" id="quote">
-    <div class="quote-inner">
-      <span class="quote-mark" aria-hidden="true">“</span>
-      <p class="quote-text">Every scar has a sound.</p>
-      <div class="quote-divider"></div>
-      <p class="quote-attr">— NYSHIQ</p>
-    </div>
+  <!-- ============ QUOTE DIVIDER ============ -->
+  <section class="quote-strip" id="quote">
+    <span class="quote-rule" aria-hidden="true"></span>
+    <p class="quote-strip-text">“Every scar has a sound.”</p>
+    <span class="quote-rule" aria-hidden="true"></span>
   </section>
 
-  <!-- ============ SECTION 3: FEATURED RELEASE ============ -->
+  <!-- ============ FEATURED RELEASE ============ -->
   <section class="featured" id="featured">
     <div class="section-inner">
-      <p class="section-eyebrow">Featured Release</p>
-      <h2 class="section-title">MOONWALK</h2>
-      <p class="section-lede">Watch the latest visual experience.</p>
+      <p class="tag-label">Featured Release · MOONWALK</p>
 
       <div class="video-frame">
         <div class="video-frame-glow"></div>
@@ -100,39 +74,10 @@
     </div>
   </section>
 
-  <!-- ============ SECTION 4: ARTIST STATS ============ -->
-  <section class="stats" id="stats">
-    <div class="section-inner">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-card-glow"></div>
-          <p class="stat-value">LAS VEGAS</p>
-          <p class="stat-label">Artist</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-glow"></div>
-          <p class="stat-value">NEW EP</p>
-          <p class="stat-label">Coming Soon</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-glow"></div>
-          <p class="stat-value">7+</p>
-          <p class="stat-label">Platforms</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-glow"></div>
-          <p class="stat-value">24/7</p>
-          <p class="stat-label">Streaming</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SECTION 5: MUSIC & SOCIAL HUB ============ -->
+  <!-- ============ MUSIC & SOCIAL HUB ============ -->
   <section class="hub" id="hub">
     <div class="section-inner">
-      <p class="section-eyebrow">The Hub</p>
-      <h2 class="section-title">Listen &amp; Follow</h2>
+      <p class="tag-label">Listen &amp; Follow</p>
 
       <div class="hub-grid">
 
@@ -196,25 +141,24 @@
     </div>
   </section>
 
-  <!-- ============ SECTION 6: ABOUT ============ -->
+  <!-- ============ ABOUT ============ -->
   <section class="about" id="about">
     <div class="section-inner about-inner">
-      <p class="section-eyebrow">About</p>
-      <h2 class="section-title">ABOUT</h2>
-      <div class="about-body">
-        <p class="about-lead">Las Vegas-based artist.<br>Real pain in every bar.</p>
-        <p class="about-text">NyshiQ blends dark storytelling, emotional lyricism and cinematic visuals into every release.</p>
-      </div>
+      <ul class="about-list">
+        <li>Dark storytelling.</li>
+        <li>Emotional lyricism.</li>
+        <li>Cinematic visuals.</li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============ SECTION 7: UPCOMING PROJECT ============ -->
+  <!-- ============ UPCOMING PROJECT ============ -->
   <section class="upcoming" id="upcoming">
     <div class="section-inner">
       <div class="upcoming-card">
         <div class="upcoming-glow"></div>
         <p class="upcoming-eyebrow">New EP</p>
-        <h2 class="upcoming-title">LETTER TO<br>MY DEAD</h2>
+        <h2 class="upcoming-title">LETTER TO MY DEAD</h2>
         <p class="upcoming-status">Coming Soon</p>
       </div>
     </div>
@@ -222,7 +166,7 @@
 
 </main>
 
-<!-- ============ SECTION 8: FOOTER ============ -->
+<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
   <p class="footer-name">NYSHIQ</p>
   <p class="footer-line">Real pain in every bar.</p>
