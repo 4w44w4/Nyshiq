@@ -20,16 +20,12 @@
   updateProgress();
 
   /* ---------- Scroll reveal ---------- */
-  var revealTargets = document.querySelectorAll(
-    '.video-frame, ' +
-    '.hub-card, ' +
-    '.about-list li, ' +
-    '.upcoming-card'
-  );
+  var revealTargets = document.querySelectorAll('.reveal, .reveal-line');
 
   revealTargets.forEach(function (el, i) {
-    el.classList.add('reveal');
-    el.style.transitionDelay = Math.min(i % 7, 6) * 60 + 'ms';
+    if (!el.style.transitionDelay) {
+      el.style.transitionDelay = Math.min(i % 5, 4) * 70 + 'ms';
+    }
   });
 
   if ('IntersectionObserver' in window) {
@@ -42,12 +38,104 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
     );
     revealTargets.forEach(function (el) { io.observe(el); });
   } else {
     revealTargets.forEach(function (el) { el.classList.add('is-visible'); });
   }
+
+  /* ---------- Subtle parallax: hero + gallery images ---------- */
+  if (!prefersReducedMotion) {
+    var heroImg = document.getElementById('heroImg');
+    var galleryImg = document.getElementById('galleryImg');
+    var gallerySection = document.getElementById('gallery');
+    var ticking = false;
+
+    function applyParallax() {
+      var y = window.scrollY || window.pageYOffset;
+
+      if (heroImg) {
+        var heroShift = Math.min(y * 0.18, 90);
+        heroImg.style.transform = 'scale(1.08) translateY(' + heroShift + 'px)';
+      }
+
+      if (galleryImg && gallerySection) {
+        var rect = gallerySection.getBoundingClientRect();
+        var vh = window.innerHeight;
+        if (rect.bottom > 0 && rect.top < vh) {
+          var progress = (vh - rect.top) / (vh + rect.height);
+          var galleryShift = (progress - 0.5) * 80;
+          galleryImg.style.transform = 'translateY(' + galleryShift + 'px)';
+        }
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(applyParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+    applyParallax();
+  }
+
+  /* ---------- Magnetic hero CTA ---------- */
+  if (!prefersReducedMotion) {
+    var cta = document.querySelector('.hero-cta');
+    if (cta) {
+      cta.addEventListener('mousemove', function (e) {
+        var rect = cta.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        cta.style.transform = 'translate(' + x * 0.18 + 'px,' + (y * 0.35 - 3) + 'px)';
+      });
+      cta.addEventListener('mouseleave', function () {
+        cta.style.transform = '';
+      });
+    }
+  }
+
+  /* ---------- Video modal: poster until clicked, no chrome until played ---------- */
+  var VIDEO_ID = 'DUbGkjgCYeA';
+  var modal = document.getElementById('videoModal');
+  var modalBackdrop = document.getElementById('videoModalBackdrop');
+  var modalWrap = document.getElementById('videoModalWrap');
+  var modalClose = document.getElementById('videoModalClose');
+  var filmTrigger = document.getElementById('filmTrigger');
+
+  function openVideoModal() {
+    if (!modal) return;
+    modal.hidden = false;
+    modalWrap.innerHTML =
+      '<iframe src="https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0" ' +
+      'title="NyshiQ — MOONWALK (Official Visual)" frameborder="0" ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+      'allowfullscreen></iframe>';
+    requestAnimationFrame(function () {
+      modal.classList.add('is-open');
+    });
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeVideoModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(function () {
+      modal.hidden = true;
+      modalWrap.innerHTML = '';
+    }, 400);
+  }
+
+  if (filmTrigger) filmTrigger.addEventListener('click', openVideoModal);
+  if (modalClose) modalClose.addEventListener('click', closeVideoModal);
+  if (modalBackdrop) modalBackdrop.addEventListener('click', closeVideoModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeVideoModal();
+  });
 
   /* ---------- Snowfall ---------- */
   var canvas = document.getElementById('snow-canvas');
@@ -75,11 +163,11 @@
       x: Math.random() * W,
       y: Math.random() * H,
       r: radius,
-      speedY: radius * 0.35 + 0.25,
-      speedX: (Math.random() - 0.5) * 0.4,
+      speedY: radius * 0.3 + 0.18,
+      speedX: (Math.random() - 0.5) * 0.35,
       drift: Math.random() * Math.PI * 2,
-      driftSpeed: Math.random() * 0.015 + 0.005,
-      opacity: Math.random() * 0.5 + 0.35
+      driftSpeed: Math.random() * 0.012 + 0.004,
+      opacity: Math.random() * 0.45 + 0.3
     };
   }
 
@@ -97,17 +185,14 @@
       f.y += f.speedY;
       f.x += f.speedX + Math.sin(f.drift) * 0.3;
 
-      if (f.y > H + 10) {
-        f.y = -10;
-        f.x = Math.random() * W;
-      }
+      if (f.y > H + 10) { f.y = -10; f.x = Math.random() * W; }
       if (f.x > W + 10) f.x = -10;
       if (f.x < -10) f.x = W + 10;
 
       ctx.beginPath();
       ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(212, 212, 216, ' + f.opacity + ')';
-      ctx.shadowColor = 'rgba(79, 70, 229, 0.6)';
+      ctx.shadowColor = 'rgba(109, 93, 196, 0.6)';
       ctx.shadowBlur = f.r * 1.5;
       ctx.fill();
     }
