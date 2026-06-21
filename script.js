@@ -7,10 +7,6 @@
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Footer year ---------- */
-  var yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
   /* ---------- Scroll progress bar ---------- */
   var fill = document.getElementById('scrollFill');
   function updateProgress() {
@@ -25,7 +21,9 @@
 
   /* ---------- Scroll reveal ---------- */
   var revealTargets = document.querySelectorAll(
+    '.quote-text, .quote-divider, .quote-attr, ' +
     '.featured .section-eyebrow, .featured .section-title, .featured .section-lede, .featured .video-frame, ' +
+    '.stat-card, ' +
     '.hub .section-eyebrow, .hub .section-title, .hub-card, ' +
     '.about .section-eyebrow, .about .section-title, .about-body, ' +
     '.upcoming-card'
